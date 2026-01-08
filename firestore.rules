@@ -1,0 +1,18 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Règle par défaut : tout refuser (sécurité maximale)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Règles spécifiques pour les bilans (assessments)
+    // Le document ID doit correspondre à l'ID de l'utilisateur (userId)
+    match /assessments/{userId} {
+      // Autoriser la lecture et l'écriture UNIQUEMENT si l'utilisateur est connecté
+      // ET que son UID correspond à l'ID du document qu'il essaie de toucher.
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}
