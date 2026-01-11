@@ -408,19 +408,6 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ company, userActions, f
             </li>
           ))}
         </ul>
-
-        <div className="mt-8">
-          <button
-            onClick={() => {
-              if (window.confirm("Êtes-vous sûr de vouloir tout effacer et recommencer ?")) {
-                onReset();
-              }
-            }}
-            className="text-xs text-red-400 hover:text-red-600 hover:underline transition-colors"
-          >
-            {t('results.restart_assessment')}
-          </button>
-        </div>
       </div>
 
     </div>
