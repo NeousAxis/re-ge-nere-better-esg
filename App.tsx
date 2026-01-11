@@ -107,7 +107,7 @@ const App: React.FC = () => {
 
             <footer className="text-center py-12 border-t border-slate-200 bg-white">
                 <p className="text-sm font-bold text-slate-400">
-                    {t('app.footer')} • v1.0.4
+                    {t('app.footer')} • v1.0.5
                 </p>
             </footer>
         </div>
