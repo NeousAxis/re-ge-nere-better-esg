@@ -50,8 +50,8 @@ export const translations = {
         "reference": "Entreprise Référence"
       },
       "disclaimer": {
-        "title": "Pour aller plus loin",
-        "text": "Vous trouverez ci-après des professionnels locaux prêts à vous aider à approfondir vos actions vers la durabilité.",
+        "title": "AVERTISSEMENT",
+        "text": "Cette plateforme a pour objectif d'aider les entreprises suisses à débuter leur parcours RSE. Toutes les informations que vous indiquez ici sont déclaratives et ne peuvent constituer un élément déterminant pour labeliser votre entreprise du sceau d'entreprise durable. C'est pourquoi vous trouverez ci-après des professionnels qui pourront vous accompagner sur le chemin de la Responsabilité Sociale et Environnementale.",
         "partners_title": "Entreprises actives à Genève pour vous accompagner dans votre démarche RSE :",
         "partners": [
           { "name": "Mon Entreprise Durable", "url": "https://www.monentreprisedurable.ch/" },
