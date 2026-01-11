@@ -9,6 +9,7 @@ import ResultsDisplay from './components/ResultsDisplay';
 import { Chatbot } from './components/Chatbot';
 import { FormData } from './types';
 import { useTranslation } from './context/LanguageContext';
+import './animations.css';
 
 const App: React.FC = () => {
     const [isAuthModalOpen, setAuthModalOpen] = useState(false);
