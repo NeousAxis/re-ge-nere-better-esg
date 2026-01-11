@@ -57,7 +57,7 @@ export const ChatFlyout: React.FC<ChatFlyoutProps> = ({ messages, isLoading, onS
                                 {msg.text.split('\n').map((line, i) => <p key={i}>{line}</p>)}
                             </div>
                         </div>
-                    ))};
+                    ))}
                     {console.log('[ChatFlyout] isLoading:', isLoading)}
                     {isLoading && (
                         <div className="flex items-end gap-2 justify-start">

@@ -123,8 +123,8 @@ export const useChat = (options: ChatOptions) => {
             const chat = chatRef.current ?? initializeChat();
             if (!chat) throw new Error("Chat not initialized");
 
-            // Create a minimum delay promise (e.g., 3s) to guarantee the user sees the typing animation
-            const minDelay = new Promise(resolve => setTimeout(resolve, 3000));
+            // Create a minimum delay promise (e.g., 5s) to guarantee the user sees the typing animation
+            const minDelay = new Promise(resolve => setTimeout(resolve, 5000));
 
             // Run the API call and the delay in parallel
             const [result] = await Promise.all([
