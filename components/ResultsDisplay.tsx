@@ -18,9 +18,10 @@ interface ResultsDisplayProps {
   onDeleteAction: (actionId: string) => void;
   onUpdateKpi: (pillar: 'E' | 'S' | 'G', index: number, text: string) => void;
   onCompletionChange: (actionId: string, percentage: number) => void;
+  onReset: () => void;
 }
 
-const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ company, userActions, formData, onStatusChange, onTextChange, onDateChange, onCreateAction, onDeleteAction, onUpdateKpi, onCompletionChange }) => {
+const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ company, userActions, formData, onStatusChange, onTextChange, onDateChange, onCreateAction, onDeleteAction, onUpdateKpi, onCompletionChange, onReset }) => {
   const [isSaved, setIsSaved] = useState(false);
   const [activeTab, setActiveTab] = useState<'dashboard' | 'timeline' | 'assessment' | 'reference'>('dashboard');
   const [isNotionExporting, setIsNotionExporting] = useState(false);
@@ -407,6 +408,19 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ company, userActions, f
             </li>
           ))}
         </ul>
+
+        <div className="mt-8">
+          <button
+            onClick={() => {
+              if (window.confirm("Êtes-vous sûr de vouloir tout effacer et recommencer ?")) {
+                onReset();
+              }
+            }}
+            className="text-xs text-red-400 hover:text-red-600 hover:underline transition-colors"
+          >
+            {t('results.restart_assessment')}
+          </button>
+        </div>
       </div>
 
     </div>

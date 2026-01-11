@@ -40,6 +40,7 @@ export const translations = {
     "results": {
       "reference_company_preamble": "Afin de vous situer, nous avons généré votre entreprise 'référence' idéale (Bâti ci-dessous). Elle représente l'étalon de mesure durable pour votre secteur. Comparez-vous à elle pour identifier vos forces actuelles et les axes d'amélioration :",
       "save_button": "Sauvegarder mon bilan",
+      "restart_assessment": "Recommencer le diagnostic (Reset)",
       "save_success": "Votre bilan a été sauvegardé !",
       "export_notion": "Exporter vers Notion",
       "tabs": {
@@ -160,6 +161,7 @@ export const translations = {
     "results": {
       "reference_company_preamble": "Your fictional reference company to drive and achieve your sustainability goals is:",
       "save_button": "Save My Assessment",
+      "restart_assessment": "Restart Assessment (Reset)",
       "save_success": "Your assessment has been saved!",
       "export_notion": "Export to Notion",
       "tabs": {

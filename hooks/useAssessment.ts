@@ -1,6 +1,6 @@
 
 import { useState, useEffect, useCallback } from 'react';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
 import { GoogleGenAI, Type } from "@google/genai";
 import { db } from '../firebaseConfig';
 import { AssessmentData, ActionStatus, ModelCompany, FormData, UserAction, User, Action } from '../types';
@@ -405,10 +405,33 @@ export const useAssessment = (user: User | null, lang: 'fr' | 'en') => {
       }
     } catch (e) {
       console.error("Recalculation failed", e);
-    } finally {
       setLoading(false);
     }
   };
+
+  const resetAssessment = useCallback(async () => {
+    if (!user) return;
+    setLoading(true);
+    try {
+      if (user.uid === 'demo-user-123') {
+        localStorage.removeItem('better_esg_demo_data');
+        setAssessment(null);
+        setMatchedCompany(null);
+      } else {
+        if (db) {
+          const docRef = doc(db, 'assessments', user.uid);
+          await deleteDoc(docRef);
+        }
+      }
+    } catch (e) {
+      console.error("Reset failed", e);
+    } finally {
+      setLoading(false);
+    }
+    // Force local state clear
+    setAssessment(null);
+    setMatchedCompany(null);
+  }, [user]);
 
   return {
     assessment,
@@ -422,6 +445,7 @@ export const useAssessment = (user: User | null, lang: 'fr' | 'en') => {
     handleCreateAction,
     handleDeleteAction,
     handleUpdateKpi,
-    recalculateScores
+    recalculateScores,
+    resetAssessment
   };
 };
