@@ -147,6 +147,14 @@ export const AssessmentChat: React.FC<AssessmentChatProps> = ({ onComplete }) =>
                 </div>
             </div>
 
+            {/* Hardcoded styles to guarantee animation works even if global CSS fails */}
+            <style>{`
+                @keyframes typing {
+                    0%, 100% { transform: translateY(0); opacity: 0.6; }
+                    50% { transform: translateY(-6px); opacity: 1; }
+                }
+                .text-xs { font-size: 0.75rem; line-height: 1rem; }
+            `}</style>
             <div className="flex-grow p-4 overflow-y-auto bg-slate-50 rounded-lg border border-slate-200">
                 <div className="space-y-4">
                     {messages.map((msg, index) => {
@@ -168,9 +176,9 @@ export const AssessmentChat: React.FC<AssessmentChatProps> = ({ onComplete }) =>
                             <div className="brand-mark !w-8 !h-8 !text-xs !rounded-xl !shadow-md">B</div>
                             <div className="max-w-[85%] p-3 rounded-2xl bg-slate-200 text-slate-800 rounded-bl-none">
                                 <div className="flex gap-1.5">
-                                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-typing"></span>
-                                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-typing" style={{ animationDelay: '200ms' }}></span>
-                                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-typing" style={{ animationDelay: '400ms' }}></span>
+                                    <span className="w-2 h-2 bg-slate-400 rounded-full" style={{ animation: 'typing 1.4s infinite ease-in-out both' }}></span>
+                                    <span className="w-2 h-2 bg-slate-400 rounded-full" style={{ animation: 'typing 1.4s infinite ease-in-out both', animationDelay: '200ms' }}></span>
+                                    <span className="w-2 h-2 bg-slate-400 rounded-full" style={{ animation: 'typing 1.4s infinite ease-in-out both', animationDelay: '400ms' }}></span>
                                 </div>
                             </div>
                         </div>

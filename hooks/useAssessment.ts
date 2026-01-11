@@ -103,6 +103,22 @@ export const useAssessment = (user: User | null, lang: 'fr' | 'en') => {
             } catch (e) {
               console.error("Error loading local demo data", e);
             }
+          } else if (user.uid === 'demo-user-456-new') {
+            // DEMO 2 Storage
+            try {
+              const stored = localStorage.getItem('better_esg_demo2_data');
+              if (stored) {
+                const data = JSON.parse(stored) as AssessmentData;
+                const company = getFreshModel(data);
+                setAssessment(data);
+                setMatchedCompany(company);
+              } else {
+                setAssessment(null);
+                setMatchedCompany(null);
+              }
+            } catch (e) {
+              console.error("Error loading local demo2 data", e);
+            }
           } else {
             try {
               if (db && typeof getDoc === 'function') {
@@ -142,6 +158,10 @@ export const useAssessment = (user: User | null, lang: 'fr' | 'en') => {
         localStorage.setItem('better_esg_demo_data', JSON.stringify(data));
         return;
       }
+      if (user.uid === 'demo-user-456-new') {
+        localStorage.setItem('better_esg_demo2_data', JSON.stringify(data));
+        return;
+      }
       try {
         if (db) {
           const docRef = doc(db, 'assessments', user.uid);
@@ -152,6 +172,16 @@ export const useAssessment = (user: User | null, lang: 'fr' | 'en') => {
       }
     }
   }, [user]);
+
+  // ... (omitting generatePersonalizedActions etc as they don't change logic based on user ID directly, just input)
+
+  // ... WE NEED TO UPDATE resetAssessment TOO ...
+
+  // NOTE: Jumping to resetAssessment replacement below as I cannot edit non-contiguous blocks easily without multi_replace, 
+  // but instruction says "Single Contiguous". I will do saveAssessment first.
+  // Wait, I can only do ONE replace per call if contiguous.
+  // I will do saveAssessment here.
+
 
   const generatePersonalizedActions = async (formData: FormData, company: ModelCompany): Promise<Record<string, UserAction>> => {
     const aiClient = getAI();
@@ -415,6 +445,10 @@ export const useAssessment = (user: User | null, lang: 'fr' | 'en') => {
     try {
       if (user.uid === 'demo-user-123') {
         localStorage.removeItem('better_esg_demo_data');
+        setAssessment(null);
+        setMatchedCompany(null);
+      } else if (user.uid === 'demo-user-456-new') {
+        localStorage.removeItem('better_esg_demo2_data');
         setAssessment(null);
         setMatchedCompany(null);
       } else {

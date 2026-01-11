@@ -62,9 +62,9 @@ export const ChatFlyout: React.FC<ChatFlyoutProps> = ({ messages, isLoading, onS
                             <div className="brand-mark !w-8 !h-8 !text-xs !rounded-xl !shadow-md">GE</div>
                             <div className="max-w-[80%] p-3 rounded-2xl bg-slate-200 text-slate-800 rounded-bl-none">
                                 <div className="flex gap-1.5">
-                                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-typing"></span>
-                                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-typing" style={{ animationDelay: '200ms' }}></span>
-                                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-typing" style={{ animationDelay: '400ms' }}></span>
+                                    <span className="w-2 h-2 bg-slate-400 rounded-full" style={{ animation: 'typing 1.4s infinite ease-in-out both' }}></span>
+                                    <span className="w-2 h-2 bg-slate-400 rounded-full" style={{ animation: 'typing 1.4s infinite ease-in-out both', animationDelay: '200ms' }}></span>
+                                    <span className="w-2 h-2 bg-slate-400 rounded-full" style={{ animation: 'typing 1.4s infinite ease-in-out both', animationDelay: '400ms' }}></span>
                                 </div>
                             </div>
                         </div>
