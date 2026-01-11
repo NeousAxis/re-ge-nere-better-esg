@@ -30,7 +30,7 @@ const optionTags = {
 } as const;
 
 const multiSelectQuestionKeys: ((typeof optionTags)[keyof typeof optionTags])[] = [
-    'impactMaterialityE', 'impactMaterialityS', 'impactMaterialityG', 'financialMaterialityRisk', 
+    'impactMaterialityE', 'impactMaterialityS', 'impactMaterialityG', 'financialMaterialityRisk',
     'financialMaterialityOpportunity', 'energyConsumption', 'valueChainImpact'
 ];
 
@@ -58,12 +58,12 @@ export const AssessmentChat: React.FC<AssessmentChatProps> = ({ onComplete }) =>
                     const parts = lastMessage.text.split(tag);
                     const optionsText = parts[1].trim();
                     let options = optionsText.split('\n').map(o => o.replace(/^- /, '').trim()).filter(Boolean);
-                    
+
                     if (options.length > 0) {
-                      setCurrentSelections(new Set()); // Reset selections for new question
-                      setQuickReplyInfo({ type: optionTags[tag as keyof typeof optionTags], options });
-                      foundOptions = true;
-                      break;
+                        setCurrentSelections(new Set()); // Reset selections for new question
+                        setQuickReplyInfo({ type: optionTags[tag as keyof typeof optionTags], options });
+                        foundOptions = true;
+                        break;
                     }
                 }
             }
@@ -71,7 +71,7 @@ export const AssessmentChat: React.FC<AssessmentChatProps> = ({ onComplete }) =>
                 setQuickReplyInfo(null);
             }
         } else {
-             setQuickReplyInfo(null);
+            setQuickReplyInfo(null);
         }
     }, [messages]);
 
@@ -83,7 +83,7 @@ export const AssessmentChat: React.FC<AssessmentChatProps> = ({ onComplete }) =>
             setInput('');
         }
     };
-    
+
     const handleQuickReplyClick = (reply: string) => {
         sendMessage(reply);
         setQuickReplyInfo(null);
@@ -95,7 +95,7 @@ export const AssessmentChat: React.FC<AssessmentChatProps> = ({ onComplete }) =>
             handleQuickReplyClick(selectedOption);
         }
     };
-    
+
     const handleMultiSelectChange = (option: string, isChecked: boolean) => {
         setCurrentSelections(prev => {
             const newSet = new Set(prev);
@@ -107,7 +107,7 @@ export const AssessmentChat: React.FC<AssessmentChatProps> = ({ onComplete }) =>
             return newSet;
         });
     };
-    
+
     const handleMultiSelectSubmit = () => {
         if (currentSelections.size > 0) {
             sendMessage(Array.from(currentSelections).join(', '));
@@ -122,15 +122,31 @@ export const AssessmentChat: React.FC<AssessmentChatProps> = ({ onComplete }) =>
 
     return (
         <div className="bg-white p-6 sm:p-8 rounded-2xl shadow-lg border border-slate-100 max-w-3xl mx-auto w-full flex flex-col flex-grow">
-             <div className="text-center mb-6">
+            <div className="text-center mb-6">
                 <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-800 tracking-tight">
                     {t('assessment.title')}
                 </h1>
                 <p className="mt-2 text-slate-600">
-                   {t('assessment.subtitle')}
+                    {t('assessment.subtitle')}
                 </p>
             </div>
-            
+
+            {/* Progress Bar */}
+            <div className="mb-6 max-w-xl mx-auto w-full">
+                <div className="flex justify-between items-end mb-2">
+                    <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">{t('assessment.progress')}</span>
+                    <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-md">
+                        {Math.min(messages.filter(m => m.sender === 'ai').length, 14)} / 14
+                    </span>
+                </div>
+                <div className="w-full bg-slate-100 rounded-full h-2">
+                    <div
+                        className="bg-blue-500 h-2 rounded-full transition-all duration-700 ease-out shadow-sm shadow-blue-200"
+                        style={{ width: `${Math.min((messages.filter(m => m.sender === 'ai').length / 14) * 100, 100)}%` }}
+                    ></div>
+                </div>
+            </div>
+
             <div className="flex-grow p-4 overflow-y-auto bg-slate-50 rounded-lg border border-slate-200">
                 <div className="space-y-4">
                     {messages.map((msg, index) => {
@@ -148,30 +164,30 @@ export const AssessmentChat: React.FC<AssessmentChatProps> = ({ onComplete }) =>
                         );
                     })}
                     {isLoading && (
-                         <div className="flex items-end gap-2 justify-start">
-                             <div className="brand-mark !w-8 !h-8 !text-xs !rounded-xl !shadow-md">B</div>
-                             <div className="max-w-[85%] p-3 rounded-2xl bg-slate-200 text-slate-800 rounded-bl-none">
+                        <div className="flex items-end gap-2 justify-start">
+                            <div className="brand-mark !w-8 !h-8 !text-xs !rounded-xl !shadow-md">B</div>
+                            <div className="max-w-[85%] p-3 rounded-2xl bg-slate-200 text-slate-800 rounded-bl-none">
                                 <div className="flex gap-1.5">
                                     <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce delay-0"></span>
                                     <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce delay-150"></span>
                                     <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce delay-300"></span>
                                 </div>
                             </div>
-                         </div>
+                        </div>
                     )}
                     <div ref={messagesEndRef} />
                 </div>
             </div>
 
-             <div className="pt-4 flex-shrink-0">
+            <div className="pt-4 flex-shrink-0">
                 {hasPreviousAnswer && !isLoading && (
                     <div className="text-center pb-3">
-                         <button onClick={goBack} className="text-sm text-blue-600 hover:underline font-semibold disabled:text-slate-400 disabled:no-underline" disabled={isLoading}>
+                        <button onClick={goBack} className="text-sm text-blue-600 hover:underline font-semibold disabled:text-slate-400 disabled:no-underline" disabled={isLoading}>
                             {t('assessment.edit_previous_answer')}
-                         </button>
+                        </button>
                     </div>
                 )}
-                
+
                 {isMultiSelect && quickReplyInfo && !isLoading && (
                     <div className="animate-fade-in-up space-y-3">
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -187,7 +203,7 @@ export const AssessmentChat: React.FC<AssessmentChatProps> = ({ onComplete }) =>
                                 </label>
                             ))}
                             {showIDKButtonFor.includes(quickReplyInfo.type as any) && (
-                                 <label className="flex items-center p-3 bg-white border border-slate-300 rounded-lg cursor-pointer hover:bg-slate-50 has-[:checked]:bg-blue-50 has-[:checked]:border-blue-400 transition-colors">
+                                <label className="flex items-center p-3 bg-white border border-slate-300 rounded-lg cursor-pointer hover:bg-slate-50 has-[:checked]:bg-blue-50 has-[:checked]:border-blue-400 transition-colors">
                                     <input
                                         type="checkbox"
                                         checked={currentSelections.has(t('assessment.idk_option'))}
@@ -209,7 +225,7 @@ export const AssessmentChat: React.FC<AssessmentChatProps> = ({ onComplete }) =>
                 )}
 
                 {!isMultiSelect && quickReplyInfo && !isLoading && (
-                     <div className="animate-fade-in-up">
+                    <div className="animate-fade-in-up">
                         <select
                             defaultValue=""
                             onChange={handleSelectChange}

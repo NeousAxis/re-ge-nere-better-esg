@@ -108,7 +108,8 @@ export const translations = {
       "select_placeholder": "-- Choisissez une option --",
       "text_input_placeholder": "Décrivez votre activité ici...",
       "text_input_disabled_placeholder": "Veuillez choisir une option ci-dessus",
-      "idk_option": "Je ne sais pas encore"
+      "idk_option": "Je ne sais pas encore",
+      "progress": "Progression"
     },
     "chatbot": {
       "open_aria_label": "Ouvrir le chat",
@@ -225,7 +226,8 @@ export const translations = {
       "select_placeholder": "-- Choose an option --",
       "text_input_placeholder": "Describe your activity here...",
       "text_input_disabled_placeholder": "Please choose an option above",
-      "idk_option": "I don't know yet"
+      "idk_option": "I don't know yet",
+      "progress": "Progress"
     },
     "chatbot": {
       "open_aria_label": "Open chat",
