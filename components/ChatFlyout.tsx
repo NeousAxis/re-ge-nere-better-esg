@@ -1,6 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { ChatMessage } from '../types';
+import { TypingIndicator } from './TypingIndicator';
 import { useTranslation } from '../context/LanguageContext';
 
 interface ChatFlyoutProps {
@@ -61,11 +62,7 @@ export const ChatFlyout: React.FC<ChatFlyoutProps> = ({ messages, isLoading, onS
                         <div className="flex items-end gap-2 justify-start">
                             <div className="brand-mark !w-8 !h-8 !text-xs !rounded-xl !shadow-md">GE</div>
                             <div className="max-w-[80%] p-3 rounded-2xl bg-slate-200 text-slate-800 rounded-bl-none">
-                                <div className="flex gap-1.5 p-1">
-                                    <div className="typing-dot"></div>
-                                    <div className="typing-dot"></div>
-                                    <div className="typing-dot"></div>
-                                </div>
+                                <TypingIndicator />
                             </div>
                         </div>
                     )}
