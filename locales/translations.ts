@@ -169,8 +169,8 @@ export const translations = {
         "timeline": "Timeline / Roadmap"
       },
       "disclaimer": {
-        "title": "Go Further",
-        "text": "Below you will find local professionals ready to help you deepen your actions towards sustainability.",
+        "title": "DISCLAIMER",
+        "text": "This platform aims to help Swiss companies begin their CSR journey. All information you provide here is declarative and cannot be a determining factor for labeling your company as a sustainable enterprise. That is why you will find below professionals who can support you on the path of Social and Environmental Responsibility.",
         "partners_title": "Active companies in Geneva to support you in your CSR approach:",
         "partners": [
           { "name": "Mon Entreprise Durable", "url": "https://www.monentreprisedurable.ch/" },
