@@ -9,7 +9,6 @@ import ResultsDisplay from './components/ResultsDisplay';
 import { Chatbot } from './components/Chatbot';
 import { FormData } from './types';
 import { useTranslation } from './context/LanguageContext';
-import './animations.css';
 
 const App: React.FC = () => {
     const [isAuthModalOpen, setAuthModalOpen] = useState(false);
@@ -108,7 +107,7 @@ const App: React.FC = () => {
 
             <footer className="text-center py-12 border-t border-slate-200 bg-white">
                 <p className="text-sm font-bold text-slate-400">
-                    {t('app.footer')}
+                    {t('app.footer')} • v1.0.1
                 </p>
             </footer>
         </div>
