@@ -168,9 +168,9 @@ export const AssessmentChat: React.FC<AssessmentChatProps> = ({ onComplete }) =>
                             <div className="brand-mark !w-8 !h-8 !text-xs !rounded-xl !shadow-md">B</div>
                             <div className="max-w-[85%] p-3 rounded-2xl bg-slate-200 text-slate-800 rounded-bl-none">
                                 <div className="flex gap-1.5">
-                                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce delay-0"></span>
-                                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce delay-150"></span>
-                                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce delay-300"></span>
+                                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-typing"></span>
+                                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-typing" style={{ animationDelay: '200ms' }}></span>
+                                    <span className="w-2 h-2 bg-slate-400 rounded-full animate-typing" style={{ animationDelay: '400ms' }}></span>
                                 </div>
                             </div>
                         </div>
