@@ -57,11 +57,13 @@ export const ChatFlyout: React.FC<ChatFlyoutProps> = ({ messages, isLoading, onS
                                 {msg.text.split('\n').map((line, i) => <p key={i}>{line}</p>)}
                             </div>
                         </div>
-                    ))}
+                    ))};
+                    {console.log('[ChatFlyout] isLoading:', isLoading)}
                     {isLoading && (
                         <div className="flex items-end gap-2 justify-start">
                             <div className="brand-mark !w-8 !h-8 !text-xs !rounded-xl !shadow-md">GE</div>
                             <div className="max-w-[80%] p-3 rounded-2xl bg-slate-200 text-slate-800 rounded-bl-none">
+                                {console.log('[ChatFlyout] Affichage TypingIndicator')}
                                 <TypingIndicator />
                             </div>
                         </div>
