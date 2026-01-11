@@ -1,30 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 export const TypingIndicator: React.FC = () => {
-    const [activeDot, setActiveDot] = useState(0);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setActiveDot((prev) => (prev + 1) % 3);
-        }, 400);
-
-        return () => clearInterval(interval);
-    }, []);
-
-    const getDotStyle = (index: number): React.CSSProperties => {
-        const isActive = index === activeDot;
-        return {
-            display: 'inline-block',
-            width: '12px',  // PLUS GROS
-            height: '12px', // PLUS GROS
-            backgroundColor: isActive ? '#1e293b' : '#64748b', // NOIR FONCE si actif, gris moyen sinon
-            borderRadius: '50%',
-            transform: isActive ? 'translateY(-8px) scale(1.3)' : 'translateY(0) scale(1)',
-            opacity: isActive ? 1 : 0.6,
-            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        };
-    };
-
     return (
         <div style={{
             display: 'flex',
@@ -34,9 +10,38 @@ export const TypingIndicator: React.FC = () => {
             padding: '12px 8px',
             minHeight: '32px',
         }}>
-            <span style={getDotStyle(0)}></span>
-            <span style={getDotStyle(1)}></span>
-            <span style={getDotStyle(2)}></span>
+            <style>{`
+                @keyframes typing-bounce {
+                    0%, 60%, 100% {
+                        transform: translateY(0);
+                        opacity: 0.5;
+                    }
+                    30% {
+                        transform: translateY(-10px);
+                        opacity: 1;
+                    }
+                }
+                .typing-dot {
+                    display: inline-block;
+                    width: 14px;
+                    height: 14px;
+                    background-color: #1e293b;
+                    border-radius: 50%;
+                    animation: typing-bounce 1.4s infinite ease-in-out;
+                }
+                .typing-dot:nth-child(1) {
+                    animation-delay: 0ms;
+                }
+                .typing-dot:nth-child(2) {
+                    animation-delay: 200ms;
+                }
+                .typing-dot:nth-child(3) {
+                    animation-delay: 400ms;
+                }
+            `}</style>
+            <span className="typing-dot"></span>
+            <span className="typing-dot"></span>
+            <span className="typing-dot"></span>
         </div>
     );
 };
