@@ -44,6 +44,44 @@ export const useAssessment = (user: User | null, lang: 'fr' | 'en') => {
   useEffect(() => {
     let mounted = true;
 
+
+    // Helper to migrate legacy string KPIs to objects
+    // Helper to migrate legacy string KPIs to objects
+    const normalizeCompany = (c: ModelCompany): ModelCompany => {
+      const copy = JSON.parse(JSON.stringify(c));
+      ['E', 'S', 'G'].forEach((p) => {
+        const pillar = p as 'E' | 'S' | 'G';
+        if (copy.pillars[pillar]?.kpis) {
+          copy.pillars[pillar].kpis = copy.pillars[pillar].kpis.map((k: any) =>
+            typeof k === 'string' ? { text: k, tags: [] } : k
+          );
+        }
+      });
+      return copy;
+    };
+
+    // Helper to prefer fresh code-defined models over stale stored ones
+    const getFreshModel = (data: AssessmentData): ModelCompany | null => {
+      // 1. Try to find by ID in the fresh constants
+      if (data.customModel?.id) {
+        const fresh = MODEL_COMPANIES.find(c => c.id === data.customModel!.id);
+        if (fresh) return JSON.parse(JSON.stringify(fresh));
+      }
+
+      // 2. Try to find by sector in the fresh constants
+      if (data.formData?.sector) {
+        const fresh = MODEL_COMPANIES.find(c => c.sector === data.formData.sector);
+        if (fresh) return JSON.parse(JSON.stringify(fresh));
+      }
+
+      // 3. Fallback to stored custom model (normalized)
+      if (data.customModel) {
+        return normalizeCompany(data.customModel);
+      }
+
+      return null;
+    };
+
     const loadAssessment = async () => {
       if (!mounted) return;
       setLoading(true);
@@ -55,7 +93,7 @@ export const useAssessment = (user: User | null, lang: 'fr' | 'en') => {
               const stored = localStorage.getItem('better_esg_demo_data');
               if (stored) {
                 const data = JSON.parse(stored) as AssessmentData;
-                const company = MODEL_COMPANIES.find(c => c.sector === data.formData.sector) || null;
+                const company = getFreshModel(data);
                 setAssessment(data);
                 setMatchedCompany(company);
               } else {
@@ -73,7 +111,7 @@ export const useAssessment = (user: User | null, lang: 'fr' | 'en') => {
 
                 if (docSnap.exists()) {
                   const data = docSnap.data() as AssessmentData;
-                  const company = MODEL_COMPANIES.find(c => c.sector === data.formData.sector) || null;
+                  const company = getFreshModel(data);
                   setAssessment(data);
                   setMatchedCompany(company);
                 } else {
@@ -125,17 +163,26 @@ export const useAssessment = (user: User | null, lang: 'fr' | 'en') => {
       .replace('{{size}}', formData.size)
       .replace('{{maturity}}', formData.maturity)
       .replace('{{companyName}}', company.name)
-      .replace('{{e_kpis}}', company.pillars.E.kpis.join('; '))
+      .replace('{{e_kpis}}', company.pillars.E.kpis.map(k => k.text).join('; '))
       .replace('{{e_actions}}', company.pillars.E.actions.map(a => a.text).join('; '))
-      .replace('{{s_kpis}}', company.pillars.S.kpis.join('; '))
+      .replace('{{s_kpis}}', company.pillars.S.kpis.map(k => k.text).join('; '))
       .replace('{{s_actions}}', company.pillars.S.actions.map(a => a.text).join('; '))
-      .replace('{{g_kpis}}', company.pillars.G.kpis.join('; '))
+      .replace('{{g_kpis}}', company.pillars.G.kpis.map(k => k.text).join('; '))
       .replace('{{g_actions}}', company.pillars.G.actions.map(a => a.text).join('; '));
 
     try {
+      const kpiSchema = {
+        type: Type.OBJECT,
+        properties: {
+          text: { type: Type.STRING },
+          tags: { type: Type.ARRAY, items: { type: Type.STRING } }
+        },
+        required: ['text', 'tags']
+      };
+
       const result = await aiClient.models.generateContent({
-        model: 'gemini-3-pro-preview',
-        contents: prompt + "\nProvide at least 3 high-quality, industry-specific KPIs per pillar. For actions, provide a suggested 'dueDate' in YYYY-MM-DD format within the next 12-24 months.",
+        model: 'gemini-2.0-flash-exp', // Using flash for speed/cost, reverting to pro if needed
+        contents: prompt,
         config: {
           responseMimeType: 'application/json',
           responseSchema: {
@@ -161,6 +208,18 @@ export const useAssessment = (user: User | null, lang: 'fr' | 'en') => {
                   kpis: { type: Type.ARRAY, items: { type: Type.STRING } },
                   actions: { type: Type.ARRAY, items: actionSchema }
                 }
+              },
+              E_REF: {
+                type: Type.OBJECT,
+                properties: { kpis: { type: Type.ARRAY, items: kpiSchema } }
+              },
+              S_REF: {
+                type: Type.OBJECT,
+                properties: { kpis: { type: Type.ARRAY, items: kpiSchema } }
+              },
+              G_REF: {
+                type: Type.OBJECT,
+                properties: { kpis: { type: Type.ARRAY, items: kpiSchema } }
               }
             }
           }
@@ -169,21 +228,28 @@ export const useAssessment = (user: User | null, lang: 'fr' | 'en') => {
 
       const aiResponse = JSON.parse(result.text);
 
-      company.pillars.E = aiResponse.E;
-      company.pillars.S = aiResponse.S;
-      company.pillars.G = aiResponse.G;
+      // SET 1: Update Reference Company with "Ideal" KPIs (E_REF, etc.)
+      // Expecting objects { text, tags } now from AI
+      if (aiResponse.E_REF?.kpis) company.pillars.E.kpis = aiResponse.E_REF.kpis;
+      if (aiResponse.S_REF?.kpis) company.pillars.S.kpis = aiResponse.S_REF.kpis;
+      if (aiResponse.G_REF?.kpis) company.pillars.G.kpis = aiResponse.G_REF.kpis;
 
+      // SET 2: Generate User Actions (Standard Good Student)
       const initialUserActions: Record<string, UserAction> = {};
-      Object.entries(aiResponse).forEach(([pillarKey, pillarData]) => {
-        (pillarData as { actions: Action[] }).actions.forEach(action => {
-          initialUserActions[action.id] = {
-            text: action.text,
-            status: 'not_started',
-            pillar: pillarKey as 'E' | 'S' | 'G',
-            tags: action.tags,
-            dueDate: action.dueDate || new Date(Date.now() + 180 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-          };
-        });
+      const pillars = ['E', 'S', 'G'] as const;
+
+      pillars.forEach(p => {
+        if (aiResponse[p]?.actions) {
+          aiResponse[p].actions.forEach((action: Action) => {
+            initialUserActions[action.id] = {
+              text: action.text,
+              status: 'not_started',
+              pillar: p,
+              tags: action.tags,
+              dueDate: action.dueDate || new Date(Date.now() + 180 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+            };
+          });
+        }
       });
       return initialUserActions;
     } catch (error) {
@@ -211,7 +277,7 @@ export const useAssessment = (user: User | null, lang: 'fr' | 'en') => {
         const company = JSON.parse(JSON.stringify(MODEL_COMPANIES.find(c => c.sector === formData.sector) || MODEL_COMPANIES[0]));
         const initialUserActions = await generatePersonalizedActions(formData, company);
         setMatchedCompany(company);
-        await saveAssessment({ formData, userActions: initialUserActions });
+        await saveAssessment({ formData, userActions: initialUserActions, customModel: company });
       } finally {
         setLoading(false);
       }
@@ -248,6 +314,18 @@ export const useAssessment = (user: User | null, lang: 'fr' | 'en') => {
     }
   }, [assessment, saveAssessment]);
 
+  const handleUpdateActionCompletion = useCallback(async (actionId: string, completionPercentage: number) => {
+    if (assessment) {
+      const newActions = { ...assessment.userActions };
+      if (newActions[actionId]) {
+        newActions[actionId] = { ...newActions[actionId], completionPercentage };
+        await saveAssessment({ ...assessment, userActions: newActions });
+        // Auto-recalculate scores when completion changes
+        setTimeout(() => recalculateScores(), 500);
+      }
+    }
+  }, [assessment, saveAssessment]);
+
   const handleDeleteAction = useCallback(async (actionId: string) => {
     if (assessment) {
       const newActions = { ...assessment.userActions };
@@ -271,6 +349,67 @@ export const useAssessment = (user: User | null, lang: 'fr' | 'en') => {
     }
   }, [assessment, saveAssessment, lang]);
 
+  const handleUpdateKpi = useCallback(async (pillar: 'E' | 'S' | 'G', index: number, text: string) => {
+    if (assessment && matchedCompany) {
+      const newCompany = JSON.parse(JSON.stringify(matchedCompany)); // Deep copy to be safe
+      newCompany.pillars[pillar].kpis[index].text = text;
+      setMatchedCompany(newCompany);
+
+      await saveAssessment({
+        ...assessment,
+        customModel: newCompany
+      });
+    }
+  }, [assessment, matchedCompany, saveAssessment]);
+
+
+  const recalculateScores = async () => {
+    if (!assessment || !user) return;
+
+    const ai = getAI();
+    if (!ai) return;
+
+    try {
+      setLoading(true);
+      const model = (ai as any).getGenerativeModel({ model: "gemini-2.0-flash-exp" });
+
+      const template = prompts[lang].RECALCULATE_SCORES_PROMPT;
+      const userActionsList = Object.entries(assessment.userActions).map(([uid, act]) => {
+        const action = act as UserAction;
+        return `- [${action.pillar}] (${action.status} - ${action.completionPercentage || 0}%): ${action.text}`;
+      }).join('\n');
+
+      const prompt = template
+        .replace('{{baseScores}}', JSON.stringify(assessment.pillarScores))
+        .replace('{{sector}}', assessment.formData.sector)
+        .replace('{{userActions}}', userActionsList);
+
+      const result = await model.generateContent(prompt);
+      const responseText = result.response.text();
+      const jsonMatch = responseText.match(/\{[\s\S]*\}/);
+
+      if (jsonMatch) {
+        const newScores = JSON.parse(jsonMatch[0]);
+
+        const updatedScores = {
+          E: newScores.E || assessment.pillarScores.E,
+          S: newScores.S || assessment.pillarScores.S,
+          G: newScores.G || assessment.pillarScores.G
+        };
+
+        // Logic to persist is already in saveAssessment
+        await saveAssessment({
+          ...assessment,
+          pillarScores: updatedScores
+        });
+      }
+    } catch (e) {
+      console.error("Recalculation failed", e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     assessment,
     matchedCompany,
@@ -279,7 +418,10 @@ export const useAssessment = (user: User | null, lang: 'fr' | 'en') => {
     handleUpdateActionStatus,
     handleUpdateActionText,
     handleUpdateActionDate,
+    handleUpdateActionCompletion,
     handleCreateAction,
-    handleDeleteAction
+    handleDeleteAction,
+    handleUpdateKpi,
+    recalculateScores
   };
 };

@@ -14,16 +14,18 @@ const App: React.FC = () => {
     const [isAuthModalOpen, setAuthModalOpen] = useState(false);
     const { currentUser, loading: authLoading, login, register, logout } = useAuth();
     const { language, t } = useTranslation();
-    const { 
-        assessment, 
-        matchedCompany, 
+    const {
+        assessment,
+        matchedCompany,
         loading: assessmentLoading,
-        handleFindBenchmark, 
+        handleFindBenchmark,
         handleUpdateActionStatus,
         handleUpdateActionText,
         handleUpdateActionDate,
+        handleUpdateActionCompletion,
         handleCreateAction,
-        handleDeleteAction
+        handleDeleteAction,
+        handleUpdateKpi
     } = useAssessment(currentUser, language);
 
 
@@ -73,14 +75,17 @@ const App: React.FC = () => {
         }
 
         return (
-            <ResultsDisplay 
-                company={matchedCompany} 
-                userActions={assessment?.userActions || {}} 
-                onStatusChange={handleUpdateActionStatus} 
+            <ResultsDisplay
+                company={matchedCompany}
+                userActions={assessment?.userActions || {}}
+                formData={assessment?.formData!}
+                onStatusChange={handleUpdateActionStatus}
                 onTextChange={handleUpdateActionText}
                 onDateChange={handleUpdateActionDate}
                 onCreateAction={handleCreateAction}
                 onDeleteAction={handleDeleteAction}
+                onUpdateKpi={handleUpdateKpi}
+                onCompletionChange={handleUpdateActionCompletion}
             />
         );
     }
@@ -88,9 +93,9 @@ const App: React.FC = () => {
     return (
         <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col selection:bg-blue-100 selection:text-blue-900">
             {isAuthModalOpen && <AuthModal onClose={() => setAuthModalOpen(false)} onLogin={handleLogin} onRegister={handleRegister} />}
-            
+
             <Header user={currentUser} onLoginClick={() => setAuthModalOpen(true)} onLogout={logout} />
-            
+
             <main className="container mx-auto px-4 py-8 sm:py-16 flex-grow flex flex-col">
                 {renderContent()}
             </main>

@@ -8,10 +8,16 @@ export interface Action {
   text: string;
   tags: ActionTag[];
   dueDate?: string;
+  completionPercentage?: number;
+}
+
+export interface KPI {
+  text: string;
+  tags?: ActionTag[];
 }
 
 export interface Pillar {
-  kpis: string[];
+  kpis: KPI[];
   actions: Action[];
 }
 
@@ -56,14 +62,21 @@ export interface UserAction {
   pillar: 'E' | 'S' | 'G';
   tags: ActionTag[];
   dueDate?: string;
+  completionPercentage?: number;
 }
 
 export interface AssessmentData {
   formData: FormData;
   userActions: Record<string, UserAction>;
+  customModel?: ModelCompany;
+  pillarScores: {
+    E: number;
+    S: number;
+    G: number;
+  };
 }
 
 export interface ChatMessage {
-    sender: 'user' | 'ai';
-    text: string;
+  sender: 'user' | 'ai';
+  text: string;
 }

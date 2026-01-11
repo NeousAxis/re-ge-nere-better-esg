@@ -4,7 +4,7 @@ export const translations = {
     "app": {
       "loading": "Chargement de votre espace...",
       "welcome_title": "Bienvenue sur re-GE-nere",
-      "welcome_subtitle": "Connectez-vous ou créez un compte pour définir votre feuille de route RSE, sauvegarder votre bilan et suivre vos progrès.",
+      "welcome_subtitle": "Connectez-vous ou créez un compte pour définir votre feuille de route RSE, sauvegarder votre bilan et suivez vos progrès.",
       "welcome_cta": "Commencer",
       "footer": "re-GE-nere - 2025 Produit par Eclore Association"
     },
@@ -38,17 +38,19 @@ export const translations = {
       "register_button_loading": "Inscription..."
     },
     "results": {
-      "reference_company_preamble": "Votre entreprise fictive de référence pour conduire et atteindre vos objectifs durables est :",
+      "reference_company_preamble": "Afin de vous situer, nous avons généré votre entreprise 'référence' idéale (Bâti ci-dessous). Elle représente l'étalon de mesure durable pour votre secteur. Comparez-vous à elle pour identifier vos forces actuelles et les axes d'amélioration :",
       "save_button": "Sauvegarder mon bilan",
       "save_success": "Votre bilan a été sauvegardé !",
       "export_notion": "Exporter vers Notion",
       "tabs": {
         "dashboard": "Tableau de Bord",
-        "timeline": "Timeline / Roadmap"
+        "timeline": "Roadmap",
+        "assessment": "Bilan RSE",
+        "reference": "Entreprise Référence"
       },
       "disclaimer": {
-        "title": "Avertissement",
-        "text": "re-GE-nere est une plateforme qui aide les entreprises à obtenir une vision globale des défis RSE (Responsabilité Sociétale des Entreprises). En aucun cas elle ne se substitue à un professionnel pour aider à mettre en place une stratégie pertinente et assurer un suivi optimal.",
+        "title": "Pour aller plus loin",
+        "text": "Vous trouverez ci-après des professionnels locaux prêts à vous aider à approfondir vos actions vers la durabilité.",
         "partners_title": "Entreprises actives à Genève pour vous accompagner dans votre démarche RSE :",
         "partners": [
           { "name": "Mon Entreprise Durable", "url": "https://www.monentreprisedurable.ch/" },
@@ -60,7 +62,7 @@ export const translations = {
     },
     "badge": {
       "initiated": {
-        "title": "RSE Initié",
+        "title": "RSE Explorateur",
         "description": "Vous avez commencé votre parcours RSE. Continuez pour renforcer votre impact !"
       },
       "committed": {
@@ -77,14 +79,15 @@ export const translations = {
       "S": { "title": "Social" },
       "G": { "title": "Gouvernance" },
       "progress": "Progression",
-      "kpi_title": "KPIs Cibles (Professionnels)",
+      "modele_title": "INDICATEURS",
+      "kpi_title": "PROPOSITION D'INDICATEURS",
       "actions_title": "Actions concrètes",
       "actions_subtitle": "Modifier, ajouter ou supprimer.",
       "add_action_button": "+ Ajouter une action"
     },
     "action": {
       "status": {
-        "not_started": "Non commencé",
+        "not_started": "Débuté",
         "in_progress": "En cours",
         "completed": "Réalisé"
       },
@@ -163,8 +166,8 @@ export const translations = {
         "timeline": "Timeline / Roadmap"
       },
       "disclaimer": {
-        "title": "Disclaimer",
-        "text": "re-GE-nere is a platform designed to provide companies with a general overview of CSR (Corporate Social Responsibility) / ESG challenges. It should not be considered a substitute for professional advice in implementing a relevant strategy and ensuring optimal monitoring.",
+        "title": "Go Further",
+        "text": "Below you will find local professionals ready to help you deepen your actions towards sustainability.",
         "partners_title": "Active companies in Geneva to support you in your CSR approach:",
         "partners": [
           { "name": "Mon Entreprise Durable", "url": "https://www.monentreprisedurable.ch/" },
@@ -193,6 +196,7 @@ export const translations = {
       "S": { "title": "Social" },
       "G": { "title": "Governance" },
       "progress": "Progress",
+      "modele_title": "INDICATORS",
       "kpi_title": "Target KPIs (Professional)",
       "actions_title": "Concrete Actions",
       "actions_subtitle": "Edit, add, or delete.",
