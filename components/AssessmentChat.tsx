@@ -169,9 +169,9 @@ export const AssessmentChat: React.FC<AssessmentChatProps> = ({ onComplete }) =>
                             <div className="brand-mark !w-8 !h-8 !text-xs !rounded-xl !shadow-md">B</div>
                             <div className="max-w-[85%] p-3 rounded-2xl bg-slate-200 text-slate-800 rounded-bl-none">
                                 <div className="flex gap-1.5 p-1">
-                                    <span className="typing-dot"></span>
-                                    <span className="typing-dot"></span>
-                                    <span className="typing-dot"></span>
+                                    <div className="typing-dot"></div>
+                                    <div className="typing-dot"></div>
+                                    <div className="typing-dot"></div>
                                 </div>
                             </div>
                         </div>
