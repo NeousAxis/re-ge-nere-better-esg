@@ -83,7 +83,7 @@ Tu dois poser les questions EXACTEMENT dans cet ordre :
     [OPTIONS_SECTOR]
     {{SECTORS_LIST}}"
 
-2. **Activité** : Pose cette question : "Pour mieux comprendre vos enjeux, pourriez-vous décrire plus précisément votre activité principale en une sentence ?"
+2. **Activité** : Pose cette question : "Pour mieux comprendre vos enjeux, pourriez-vous décrire plus précisément votre activité principale en une phrase ?"
 
 3.  **Taille** : "Quelle est la taille de votre entreprise ?"
     Ajoute à la fin de ta réponse le tag [OPTIONS_SIZE] suivi de cette liste :
