@@ -57,14 +57,18 @@ export const AssessmentChat: React.FC<AssessmentChatProps> = ({ onComplete }) =>
             for (const tag of Object.keys(optionTags)) {
                 if (lastMessage.text.includes(tag)) {
                     const parts = lastMessage.text.split(tag);
-                    const optionsText = parts[1].trim();
+                    const optionsText = parts[1]?.trim() || '';
                     let options = optionsText.split('\n').map(o => o.replace(/^- /, '').trim()).filter(Boolean);
 
-                    if (options.length > 0) {
-                        setCurrentSelections(new Set()); // Reset selections for new question
+                    // Ne définir quickReplyInfo que si on a vraiment des options valides
+                    if (options.length > 0 && options[0].length > 0) {
+                        console.log('[AssessmentChat] Options trouvées:', tag, options);
+                        setCurrentSelections(new Set());
                         setQuickReplyInfo({ type: optionTags[tag as keyof typeof optionTags], options });
                         foundOptions = true;
                         break;
+                    } else {
+                        console.warn('[AssessmentChat] Tag trouvé mais options vides:', tag);
                     }
                 }
             }
