@@ -224,23 +224,28 @@ export const REGIONS: Region[] = [
     name: { fr: 'Neuchâtel', en: 'Neuchâtel' },
     aliases: ['neuchatel', 'neuchâtel', 'ne'],
     planDirecteur: {
-      fr: 'Plan directeur cantonal',
-      en: 'Cantonal Master Plan',
-      url: 'https://www.ne.ch/themes/energie-et-environnement/environnement/dechets',
+      fr: 'Plan directeur cantonal + Plan climat neuchâtelois',
+      en: 'Cantonal Master Plan + Neuchâtel Climate Plan',
+      url: 'https://www.ne.ch/page/plan-climat',
     },
     indicatorFramework: {
-      fr: 'Cercle Indicateurs (OFS/ARE)',
-      en: 'Cercle Indicateurs (FSO/ARE)',
+      fr: 'Cercle Indicateurs (OFS/ARE) + Plan climat cantonal',
+      en: 'Cercle Indicateurs (FSO/ARE) + cantonal Climate Plan',
       url: 'https://www.bfs.admin.ch/bfs/fr/home/statistiques/developpement-durable/cercle-indicateurs.html',
+    },
+    climateTarget: {
+      fr: 'Cible : zéro émission nette d\'ici 2050 (−90 % de GES/hab.), Plan climat neuchâtelois.',
+      en: 'Target: net-zero by 2050 (−90% GHG/capita), Neuchâtel Climate Plan.',
     },
     cercleParticipant: true,
     keyValues: [
-      { dimension: 'ENV', label: { fr: 'Taux de valorisation des déchets', en: 'Waste recovery rate' }, value: { fr: '≈ 53 %', en: '≈ 53%' } },
+      { dimension: 'ENV', label: { fr: 'Émissions de GES', en: 'GHG emissions' }, value: { fr: '≈ 5,4 t CO₂e/hab.', en: '≈ 5.4 t CO₂e/capita' } },
+      { dimension: 'ENV', label: { fr: 'Taux de tri des déchets', en: 'Waste sorting rate' }, value: { fr: '49,9 %', en: '49.9%' }, year: '2024' },
     ],
     sources: [
+      { label: { fr: 'Plan climat neuchâtelois (ne.ch)', en: 'Neuchâtel Climate Plan (ne.ch)' }, url: 'https://www.ne.ch/page/plan-climat' },
       { label: { fr: 'Déchets — canton de Neuchâtel (ne.ch)', en: 'Waste — canton of Neuchâtel (ne.ch)' }, url: 'https://www.ne.ch/themes/energie-et-environnement/environnement/dechets' },
     ],
-    dataNote: { fr: 'Valeurs cantonales détaillées à compléter — consulter les portails officiels ne.ch.', en: 'Detailed cantonal values to be completed — see ne.ch official portals.' },
   },
   {
     key: 'JU',
@@ -256,13 +261,19 @@ export const REGIONS: Region[] = [
       en: 'Cercle Indicateurs (FSO/ARE) + Jura Climate Plan',
       url: 'https://www.bfs.admin.ch/bfs/fr/home/statistiques/developpement-durable/cercle-indicateurs.html',
     },
+    climateTarget: {
+      fr: 'Plan climat jurassien — plan d\'action 2024-2027 (axe économie circulaire).',
+      en: 'Jura Climate Plan — 2024-2027 action plan (circular-economy focus).',
+    },
     cercleParticipant: true,
-    keyValues: [],
-    sources: [
-      { label: { fr: 'Plan climat jurassien (jura.ch)', en: 'Jura Climate Plan (jura.ch)' }, url: 'https://www.jura.ch/fr/Autorites/Plan-climat/Domaines-d-actions/Economie-circulaire/Plan-Climat-Jura-Actions-en-matiere-d-economie-circulaire.html' },
-      { label: { fr: 'Déchets urbains (jura.ch)', en: 'Municipal waste (jura.ch)' }, url: 'https://www.jura.ch/DEN/ENV/Dechets/Dechets-urbains/Dechets-urbains.html' },
+    keyValues: [
+      { dimension: 'ENV', label: { fr: 'Déchets urbains', en: 'Municipal waste' }, value: { fr: '≈ 422 kg/hab. (182 incinérés + 240 triés)', en: '≈ 422 kg/capita (182 incinerated + 240 sorted)' }, year: '2022' },
+      { dimension: 'ENV', label: { fr: 'Taux de collecte séparée', en: 'Separate collection rate' }, value: { fr: '≈ 57 %', en: '≈ 57%' }, year: '2022' },
     ],
-    dataNote: { fr: 'Valeurs cantonales chiffrées à compléter depuis le Plan climat jurassien (source officielle).', en: 'Quantified cantonal values to be completed from the Jura Climate Plan (official source).' },
+    sources: [
+      { label: { fr: 'Mémento statistique jurassien (jura.ch)', en: 'Jura statistical yearbook (jura.ch)' }, url: 'https://www.jura.ch/fr/Autorites/Statistique/Publications/Memento-statistique.html' },
+      { label: { fr: 'Déchets urbains (jura.ch)', en: 'Municipal waste (jura.ch)' }, url: 'https://www.jura.ch/fr/Autorites/Administration/DEC/ENV/Dechets/Dechets-urbains/Dechets-urbains.html' },
+    ],
   },
   {
     key: 'CH',
