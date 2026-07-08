@@ -60,7 +60,7 @@ const App: React.FC = () => {
             return (
                 <div className="text-center bg-white p-12 sm:p-20 rounded-3xl shadow-2xl shadow-slate-200 border border-slate-100 max-w-4xl mx-auto mt-8 animate-fade-in-up">
                     <div className="brand-mark !w-20 !h-20 !text-3xl !rounded-3xl !mx-auto !mb-8 !shadow-2xl">GE</div>
-                    <h1 className="text-4xl sm:text-6xl font-black text-slate-900 leading-tight">{t('app.welcome_title')}</h1>
+                    <h1 className="text-4xl sm:text-6xl font-black text-slate-900 leading-tight whitespace-pre-line">{t('app.welcome_title')}</h1>
                     <p className="mt-6 text-slate-600 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed">
                         {t('app.welcome_subtitle')}
                     </p>

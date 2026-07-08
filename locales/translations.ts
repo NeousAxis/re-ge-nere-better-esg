@@ -3,7 +3,7 @@ export const translations = {
   fr: {
     "app": {
       "loading": "Chargement de votre espace...",
-      "welcome_title": "Bienvenue sur re-GE-nere",
+      "welcome_title": "re-GE-nere\nBienvenue",
       "welcome_subtitle": "Connectez-vous ou créez un compte pour définir votre feuille de route RSE, sauvegarder votre bilan et suivez vos progrès.",
       "welcome_cta": "Commencer",
       "footer": "re-GE-nere - 2025 Produit par Eclore Association"
@@ -128,7 +128,7 @@ export const translations = {
   en: {
     "app": {
       "loading": "Loading your space...",
-      "welcome_title": "Welcome to re-GE-nere",
+      "welcome_title": "re-GE-nere\nWelcome",
       "welcome_subtitle": "Log in or create an account to define your ESG roadmap, save your assessment, and track your progress.",
       "welcome_cta": "Get Started",
       "footer": "re-GE-nere - 2025 Produced by Eclore Association"
