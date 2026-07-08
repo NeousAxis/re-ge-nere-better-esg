@@ -9,9 +9,8 @@ interface AuthModalProps {
 }
 
 export const AuthModal: React.FC<AuthModalProps> = ({ onClose, onLogin, onRegister }) => {
-    // PRE-FILL for immediate access in testing environment
-    const [email, setEmail] = useState('demo@re-ge-nere.com');
-    const [password, setPassword] = useState('123456');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -67,11 +66,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onClose, onLogin, onRegist
           </button>
         </div>
         
-        <div className="bg-blue-50 border border-blue-200 text-blue-800 p-3 rounded-lg mb-4 text-xs">
-            <strong>Mode Test :</strong> Identifiants pré-remchis pour tester l'application immédiatement (contourne l'absence de base de données réelle ici).
-        </div>
-
-        {error && <p className="bg-red-100 text-red-700 p-3 rounded-lg mb-4 text-sm">{error}</p>}
+        {error &&<p className="bg-red-100 text-red-700 p-3 rounded-lg mb-4 text-sm">{error}</p>}
 
         <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
             <div className="space-y-4">

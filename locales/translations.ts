@@ -27,6 +27,9 @@ export const translations = {
         "auth-user-not-found": "Aucun compte n'a été trouvé pour cet email.",
         "auth-wrong-password": "Le mot de passe est incorrect.",
         "auth-invalid-api-key": "Clé API Firebase invalide ou manquante. Le mode démo est recommandé.",
+        "auth-invalid-credential": "Email ou mot de passe incorrect.",
+        "auth-invalid-login-credentials": "Email ou mot de passe incorrect.",
+        "auth-too-many-requests": "Trop de tentatives. Veuillez réessayer plus tard.",
         "auth-unknown-error": "Une erreur inconnue est survenue. Veuillez réessayer."
       },
       "email_label": "Email",
@@ -149,6 +152,9 @@ export const translations = {
         "auth-user-not-found": "No account was found for this email.",
         "auth-wrong-password": "The password is incorrect.",
         "auth-invalid-api-key": "Invalid or missing Firebase API Key. Demo mode is recommended.",
+        "auth-invalid-credential": "Incorrect email or password.",
+        "auth-invalid-login-credentials": "Incorrect email or password.",
+        "auth-too-many-requests": "Too many attempts. Please try again later.",
         "auth-unknown-error": "An unknown error occurred. Please try again."
       },
       "email_label": "Email",

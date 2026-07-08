@@ -2,14 +2,17 @@ import { initializeApp, FirebaseApp, getApp } from 'firebase/app';
 import { getAuth, Auth } from 'firebase/auth';
 import { getFirestore, Firestore } from 'firebase/firestore';
 
-// Your web app's Firebase configuration
+// Firebase web config for the "better-esg" project.
+// These are client-side config values (NOT secrets): access is controlled by Firebase
+// Authentication + Firestore security rules, not by hiding them. Shipping them is standard.
 const firebaseConfig = {
-  apiKey: process.env.FIREBASE_API_KEY || "REPLACE_WITH_YOUR_API_KEY",
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN || "better-esg.firebaseapp.com",
-  projectId: process.env.FIREBASE_PROJECT_ID || "better-esg",
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET || "better-esg.appspot.com",
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID || "REPLACE_WITH_YOUR_SENDER_ID",
-  appId: process.env.FIREBASE_APP_ID || "REPLACE_WITH_YOUR_APP_ID",
+  apiKey: "AIzaSyAfFLd8zT2L-gRWNIX81mxu1vGzHsqjaVw",
+  authDomain: "better-esg.firebaseapp.com",
+  projectId: "better-esg",
+  storageBucket: "better-esg.firebasestorage.app",
+  messagingSenderId: "342985969310",
+  appId: "1:342985969310:web:9349d49709968f32fd758f",
+  measurementId: "G-JMDV0J6RSR",
 };
 
 // Initialize Firebase defensively
