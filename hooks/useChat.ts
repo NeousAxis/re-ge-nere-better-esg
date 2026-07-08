@@ -5,6 +5,7 @@ import { ChatMessage, AssessmentData, ModelCompany, FormData } from '../types';
 import { MODEL_COMPANIES as MODEL_COMPANIES_FR } from '../constants/data-fr';
 import { MODEL_COMPANIES as MODEL_COMPANIES_EN } from '../constants/data-en';
 import { prompts } from '../constants/prompts';
+import { buildRegionContext } from '../constants/regions';
 
 // Lazy init
 const getAI = () => {
@@ -65,6 +66,7 @@ export const useChat = (options: ChatOptions) => {
                 .replace('{{activityDescription}}', assessment.formData.activityDescription || '')
                 .replace('{{size}}', assessment.formData.size)
                 .replace('{{territory}}', assessment.formData.territory)
+                .replace('{{cantonContext}}', buildRegionContext(assessment.canton, assessment.formData.sector, lang))
                 .replace('{{supplyChain}}', assessment.formData.supplyChain)
                 .replace('{{workforceOrigin}}', assessment.formData.workforceOrigin)
                 .replace('{{impactMaterialityE}}', assessment.formData.impactMaterialityE.join(', '))

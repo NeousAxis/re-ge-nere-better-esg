@@ -25,7 +25,8 @@ const App: React.FC = () => {
         handleUpdateActionCompletion,
         handleCreateAction,
         handleDeleteAction,
-        handleUpdateKpi
+        handleUpdateKpi,
+        handleUpdateCanton
     } = useAssessment(currentUser, language);
 
 
@@ -79,6 +80,8 @@ const App: React.FC = () => {
                 company={matchedCompany}
                 userActions={assessment?.userActions || {}}
                 formData={assessment?.formData!}
+                canton={assessment?.canton}
+                onCantonChange={handleUpdateCanton}
                 onStatusChange={handleUpdateActionStatus}
                 onTextChange={handleUpdateActionText}
                 onDateChange={handleUpdateActionDate}

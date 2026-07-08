@@ -45,6 +45,7 @@ export const translations = {
       "export_notion": "Exporter vers Notion",
       "tabs": {
         "dashboard": "Tableau de Bord",
+        "canton": "Indicateurs du canton",
         "timeline": "Roadmap",
         "assessment": "Bilan RSE",
         "reference": "Entreprise Référence"
@@ -166,7 +167,10 @@ export const translations = {
       "export_notion": "Export to Notion",
       "tabs": {
         "dashboard": "Dashboard",
-        "timeline": "Timeline / Roadmap"
+        "canton": "Cantonal Indicators",
+        "timeline": "Timeline / Roadmap",
+        "assessment": "ESG Assessment",
+        "reference": "Reference Company"
       },
       "disclaimer": {
         "title": "DISCLAIMER",

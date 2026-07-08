@@ -69,6 +69,8 @@ export interface AssessmentData {
   formData: FormData;
   userActions: Record<string, UserAction>;
   customModel?: ModelCompany;
+  /** Canton renseigné APRÈS le questionnaire (clé de région : GE, VD, FR, VS, NE, JU, CH). */
+  canton?: string;
   pillarScores: {
     E: number;
     S: number;

@@ -393,6 +393,13 @@ export const useAssessment = (user: User | null, lang: 'fr' | 'en') => {
   }, [assessment, matchedCompany, saveAssessment]);
 
 
+  const handleUpdateCanton = useCallback(async (canton: string) => {
+    if (assessment) {
+      await saveAssessment({ ...assessment, canton });
+    }
+  }, [assessment, saveAssessment]);
+
+
   const recalculateScores = async () => {
     if (!assessment || !user) return;
 
@@ -479,6 +486,7 @@ export const useAssessment = (user: User | null, lang: 'fr' | 'en') => {
     handleCreateAction,
     handleDeleteAction,
     handleUpdateKpi,
+    handleUpdateCanton,
     recalculateScores,
     resetAssessment
   };

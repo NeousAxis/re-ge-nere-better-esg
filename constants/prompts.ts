@@ -59,6 +59,8 @@ Le profil de l'utilisateur est le suivant :
 - Enjeux chaîne de valeur: {{valueChainImpact}}
 - Maturité: {{maturity}}
 
+{{cantonContext}}
+
 L'entreprise de référence (Benchmark) est IDÉALEMENT nommée : "{{modelCompany}}".
 Le statut de ses actions (du benchmark, PAS de l'utilisateur) est : {{actionStatus}}
 
@@ -293,6 +295,8 @@ The user's profile is as follows:
 - Energy Issues: {{energyConsumption}}
 - Value Chain Issues: {{valueChainImpact}}
 - Maturity: {{maturity}}
+
+{{cantonContext}}
 
 The reference company is "{{modelCompany}}".
 The status of its actions is: {{actionStatus}}

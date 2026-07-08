@@ -1,16 +1,19 @@
 
 import React, { useState } from 'react';
-import { ModelCompany, ActionStatus, UserAction } from '../types';
+import { ModelCompany, ActionStatus, UserAction, FormData } from '../types';
 import { PillarCard } from './PillarCard';
 import { Badge } from './Badge';
 import { Tag } from './Tag';
 import { useTranslation } from '../context/LanguageContext';
 import { TimelineView } from './TimelineView';
+import CantonIndicators from './CantonIndicators';
 
 interface ResultsDisplayProps {
   company: ModelCompany;
   userActions: Record<string, UserAction>;
   formData: FormData;
+  canton?: string;
+  onCantonChange?: (canton: string) => void;
   onStatusChange: (actionId: string, status: ActionStatus) => void;
   onTextChange: (actionId: string, text: string) => void;
   onDateChange: (actionId: string, date: string) => void;
@@ -21,9 +24,10 @@ interface ResultsDisplayProps {
   onReset: () => void;
 }
 
-const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ company, userActions, formData, onStatusChange, onTextChange, onDateChange, onCreateAction, onDeleteAction, onUpdateKpi, onCompletionChange, onReset }) => {
+const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ company, userActions, formData, canton, onCantonChange, onStatusChange, onTextChange, onDateChange, onCreateAction, onDeleteAction, onUpdateKpi, onCompletionChange, onReset }) => {
   const [isSaved, setIsSaved] = useState(false);
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'timeline' | 'assessment' | 'reference'>('dashboard');
+  // Après le questionnaire, si le canton n'est pas encore renseigné, on ouvre l'onglet Canton pour le demander.
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'canton' | 'timeline' | 'assessment' | 'reference'>(canton ? 'dashboard' : 'canton');
   const [isNotionExporting, setIsNotionExporting] = useState(false);
   const { t } = useTranslation();
 
@@ -153,6 +157,13 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ company, userActions, f
           {t('results.tabs.dashboard')}
         </button>
         <button
+          onClick={() => setActiveTab('canton')}
+          className={`px-8 py-4 text-sm font-bold border-b-2 transition-colors whitespace-nowrap ${activeTab === 'canton' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-800'
+            }`}
+        >
+          {t('results.tabs.canton')}
+        </button>
+        <button
           onClick={() => setActiveTab('timeline')}
           className={`px-8 py-4 text-sm font-bold border-b-2 transition-colors whitespace-nowrap ${activeTab === 'timeline' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-800'
             }`}
@@ -247,6 +258,8 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ company, userActions, f
             })}
           </dl>
         </div>
+      ) : activeTab === 'canton' ? (
+        <CantonIndicators canton={canton} sector={formData?.sector} onCantonChange={onCantonChange} />
       ) : (
         <div className="bg-white rounded-3xl p-10 border border-slate-200 shadow-sm animate-fade-in-up">
           <div className="text-center mb-10">
