@@ -7,6 +7,7 @@ import { Tag } from './Tag';
 import { useTranslation } from '../context/LanguageContext';
 import { TimelineView } from './TimelineView';
 import CantonIndicators from './CantonIndicators';
+import { REGIONS, getRegionByTerritory } from '../constants/regions';
 
 interface ResultsDisplayProps {
   company: ModelCompany;
@@ -29,7 +30,9 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ company, userActions, f
   // Après le questionnaire, si le canton n'est pas encore renseigné, on ouvre l'onglet Canton pour le demander.
   const [activeTab, setActiveTab] = useState<'dashboard' | 'canton' | 'timeline' | 'assessment' | 'reference'>(canton ? 'dashboard' : 'canton');
   const [isNotionExporting, setIsNotionExporting] = useState(false);
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
+  const L = language as 'fr' | 'en';
+  const cantonRegion = canton ? (REGIONS.find(r => r.key === canton) || getRegionByTerritory(canton)) : null;
 
   const handleSave = () => {
     setIsSaved(true);
@@ -284,6 +287,47 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ company, userActions, f
           </div>
 
           <h3 className="text-2xl font-black text-slate-800 text-center mb-8 uppercase tracking-tight">Comparatif de Performance Identifié</h3>
+
+          {/* Cantonal plan directeur — the reference is anchored to the selected canton's official targets */}
+          <div className="max-w-5xl mx-auto mb-10">
+            {cantonRegion ? (
+              <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-blue-600 text-white font-black shadow">{cantonRegion.key}</span>
+                  <div>
+                    <h4 className="text-base font-black text-slate-900">
+                      {L === 'fr' ? 'Plan directeur cantonal' : 'Cantonal master plan'} — {cantonRegion.name[L]}
+                    </h4>
+                    <p className="text-xs text-slate-500">{cantonRegion.planDirecteur[L]}</p>
+                  </div>
+                </div>
+                {cantonRegion.climateTarget && (
+                  <p className="text-sm text-slate-700 mb-3">🎯 {cantonRegion.climateTarget[L]}</p>
+                )}
+                {cantonRegion.keyValues.length > 0 && (
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {cantonRegion.keyValues.map((v, i) => (
+                      <div key={i} className="bg-white rounded-xl border border-blue-100 p-3">
+                        <p className="text-base font-black text-slate-900 leading-tight">{v.value[L]}</p>
+                        <p className="text-[11px] font-bold text-slate-500">{v.label[L]}{v.year ? ` (${v.year})` : ''}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <p className="text-xs text-slate-500 mt-3 italic">
+                  {L === 'fr'
+                    ? "L'entreprise de référence idéale s'aligne sur ces objectifs cantonaux officiels. Détail dans l'onglet « Indicateurs du canton »."
+                    : 'The ideal reference company aligns with these official cantonal targets. Details in the “Cantonal indicators” tab.'}
+                </p>
+              </div>
+            ) : (
+              <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-sm text-amber-800 text-center">
+                {L === 'fr'
+                  ? "👉 Sélectionnez votre canton dans l'onglet « Indicateurs du canton » pour afficher ici les objectifs du plan directeur cantonal."
+                  : '👉 Select your canton in the “Cantonal indicators” tab to display the cantonal master plan targets here.'}
+              </div>
+            )}
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Model KPIs */}
