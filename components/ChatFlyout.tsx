@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { ChatMessage } from '../types';
 import { TypingIndicator } from './TypingIndicator';
 import { useTranslation } from '../context/LanguageContext';
+import BrandIcon from './BrandIcon';
 
 interface ChatFlyoutProps {
     messages: ChatMessage[];
@@ -52,7 +53,7 @@ export const ChatFlyout: React.FC<ChatFlyoutProps> = ({ messages, isLoading, onS
                 <div className="space-y-4">
                     {messages.map((msg, index) => (
                         <div key={index} className={`flex items-end gap-2 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                            {msg.sender === 'ai' && <div className="brand-mark !w-8 !h-8 !text-xs !rounded-xl !shadow-md">GE</div>}
+                            {msg.sender === 'ai' && <div className="brand-mark !w-8 !h-8 !text-xs !rounded-xl !shadow-md"><BrandIcon /></div>}
                             <div className={`max-w-[80%] p-3 rounded-2xl text-sm ${msg.sender === 'user' ? 'bg-blue-600 text-white rounded-br-none' : 'bg-slate-200 text-slate-800 rounded-bl-none'}`}>
                                 {msg.text.split('\n').map((line, i) => <p key={i}>{line}</p>)}
                             </div>
@@ -61,7 +62,7 @@ export const ChatFlyout: React.FC<ChatFlyoutProps> = ({ messages, isLoading, onS
                     {console.log('[ChatFlyout] isLoading:', isLoading)}
                     {isLoading && (
                         <div className="flex items-end gap-2 justify-start">
-                            <div className="brand-mark !w-8 !h-8 !text-xs !rounded-xl !shadow-md">GE</div>
+                            <div className="brand-mark !w-8 !h-8 !text-xs !rounded-xl !shadow-md"><BrandIcon /></div>
                             <div className="max-w-[80%] p-3 rounded-2xl bg-slate-200 text-slate-800 rounded-bl-none">
                                 {console.log('[ChatFlyout] Affichage TypingIndicator')}
                                 <TypingIndicator />

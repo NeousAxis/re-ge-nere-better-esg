@@ -2,9 +2,9 @@
 <img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
 </div>
 
-# re-GE-nere — Feuille de route RSE / ESG pour les entreprises suisses
+# re-ge-nere — Feuille de route RSE / ESG pour les entreprises suisses
 
-**re-GE-nere** est une plateforme d'auto-évaluation RSE/ESG destinée aux PME suisses qui débutent leur démarche de durabilité. Elle réalise un **diagnostic conversationnel** (assisté par IA), en déduit une **feuille de route E/S/G** (indicateurs + actions concrètes), et propose des **indicateurs cantonaux et fédéraux officiels et chiffrés** selon le canton et le secteur de l'entreprise.
+**re-ge-nere** est une plateforme d'auto-évaluation RSE/ESG destinée aux PME suisses qui débutent leur démarche de durabilité. Elle réalise un **diagnostic conversationnel** (assisté par IA), en déduit une **feuille de route E/S/G** (indicateurs + actions concrètes), et propose des **indicateurs cantonaux et fédéraux officiels et chiffrés** selon le canton et le secteur de l'entreprise.
 
 > ⚠️ Les informations saisies sont déclaratives et ne constituent pas une labellisation. La plateforme vise à aider au démarrage d'une démarche RSE, pas à certifier une entreprise.
 

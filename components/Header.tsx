@@ -2,6 +2,7 @@
 import React from 'react';
 import { User } from '../types';
 import { useTranslation } from '../context/LanguageContext';
+import BrandIcon from './BrandIcon';
 
 interface HeaderProps {
   user: User | null;
@@ -23,9 +24,9 @@ export const Header: React.FC<HeaderProps> = ({ user, onLoginClick, onLogout }) 
         <header className="py-4 bg-white border-b border-slate-200 sticky top-0 z-10">
             <div className="container mx-auto px-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                    <div className="brand-mark">GE</div>
+                    <div className="brand-mark"><BrandIcon /></div>
                     <div>
-                        <strong className="text-slate-800 font-bold text-lg">re-GE-nere</strong>
+                        <strong className="text-slate-800 font-bold text-lg">re-ge-nere</strong>
                         <p className="text-slate-500 text-sm hidden sm:block">{t('header.tagline')}</p>
                     </div>
                 </div>
