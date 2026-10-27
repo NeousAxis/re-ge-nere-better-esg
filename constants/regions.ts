@@ -1,6 +1,6 @@
 // constants/regions.ts
 //
-// Référentiel d'INDICATEURS CANTONAUX & FÉDÉRAUX + déclinaison SECTORIELLE pour re-ge-nere.
+// Référentiel d'INDICATEURS CANTONAUX & FÉDÉRAUX + déclinaison SECTORIELLE pour Regenere.
 //
 // Source cantonale : « Cercle Indicateurs » — système national d'indicateurs de
 // développement durable pour les cantons et les villes, piloté par la Confédération

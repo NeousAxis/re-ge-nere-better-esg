@@ -3,10 +3,10 @@ export const translations = {
   fr: {
     "app": {
       "loading": "Chargement de votre espace...",
-      "welcome_title": "re-ge-nere\nBienvenue",
+      "welcome_title": "Regenere\nBienvenue",
       "welcome_subtitle": "Connectez-vous ou créez un compte pour définir votre feuille de route RSE, sauvegarder votre bilan et suivez vos progrès.",
       "welcome_cta": "Commencer",
-      "footer": "re-ge-nere - 2025 Produit par Eclore Association"
+      "footer": "Regenere - 2025 Produit par Eclore Association"
     },
     "header": {
       "tagline": "Votre feuille de route RSE.",
@@ -128,10 +128,10 @@ export const translations = {
   en: {
     "app": {
       "loading": "Loading your space...",
-      "welcome_title": "re-ge-nere\nWelcome",
+      "welcome_title": "Regenere\nWelcome",
       "welcome_subtitle": "Log in or create an account to define your ESG roadmap, save your assessment, and track your progress.",
       "welcome_cta": "Get Started",
-      "footer": "re-ge-nere - 2025 Produced by Eclore Association"
+      "footer": "Regenere - 2025 Produced by Eclore Association"
     },
     "header": {
       "tagline": "Your ESG roadmap.",

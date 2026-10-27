@@ -1,4 +1,4 @@
-// Symbole de re-ge-nere : une feuille dans une boucle (le vivant qui se renouvelle), sur le dégradé de la marque (classe brand-mark).
+// Symbole de Regenere : une feuille dans une boucle (le vivant qui se renouvelle), sur le dégradé de la marque (classe brand-mark).
 const BrandIcon = () => (
     <svg viewBox="0 0 64 64" aria-hidden="true" className="w-full h-full" fill="none">
         <path d="M40.5 17.5 A17 17 0 1 1 26 16.6" stroke="white" strokeWidth="4" strokeLinecap="round" />

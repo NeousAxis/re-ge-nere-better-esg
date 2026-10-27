@@ -44,7 +44,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ company, userActions, f
     // Simulate API call
     setTimeout(() => {
       setIsNotionExporting(false);
-      alert("Exportation réussie ! Votre base de données re-ge-nere a été créée dans votre espace Notion.");
+      alert("Exportation réussie ! Votre base de données Regenere a été créée dans votre espace Notion.");
     }, 2000);
   };
 
