@@ -26,7 +26,7 @@ export const Header: React.FC<HeaderProps> = ({ user, onLoginClick, onLogout }) 
                 <div className="flex items-center gap-3">
                     <div className="brand-mark"><BrandIcon /></div>
                     <div>
-                        <strong className="text-slate-800 font-bold text-lg">Regenere</strong>
+                        <strong className="text-slate-800 font-bold text-lg">{t('header.name')}</strong>
                         <p className="text-slate-500 text-sm hidden sm:block">{t('header.tagline')}</p>
                     </div>
                 </div>

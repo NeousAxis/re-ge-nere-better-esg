@@ -3,12 +3,13 @@ export const translations = {
   fr: {
     "app": {
       "loading": "Chargement de votre espace...",
-      "welcome_title": "Regenere\nBienvenue",
+      "welcome_title": "Régénère\nBienvenue",
       "welcome_subtitle": "Connectez-vous ou créez un compte pour définir votre feuille de route RSE, sauvegarder votre bilan et suivez vos progrès.",
       "welcome_cta": "Commencer",
-      "footer": "Regenere - 2025 Produit par Eclore Association"
+      "footer": "Régénère - 2025 Produit par Eclore Association"
     },
     "header": {
+      "name": "Régénère",
       "tagline": "Votre feuille de route RSE.",
       "greeting": "Bonjour",
       "logout": "Se déconnecter",
@@ -134,6 +135,7 @@ export const translations = {
       "footer": "Regenere - 2025 Produced by Eclore Association"
     },
     "header": {
+      "name": "Regenere",
       "tagline": "Your ESG roadmap.",
       "greeting": "Hello",
       "logout": "Log out",

@@ -15,6 +15,8 @@ const App: React.FC = () => {
     const [isAuthModalOpen, setAuthModalOpen] = useState(false);
     const { currentUser, loading: authLoading, login, register, logout } = useAuth();
     const { language, t } = useTranslation();
+    // Le nom de l'onglet suit la langue : Régénère en français, Regenere en anglais.
+    useEffect(() => { document.title = t('header.name'); }, [language, t]);
     const {
         assessment,
         matchedCompany,
